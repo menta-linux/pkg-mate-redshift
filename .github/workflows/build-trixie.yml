@@ -1,0 +1,97 @@
+name: Build for Debian 13
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build mate-redshift for Debian 13
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:trixie
+
+    steps:
+      - name: Install build tools
+        run: |
+          apt-get update
+          apt-get install -y \
+            ca-certificates \
+            curl \
+            git \
+            build-essential \
+            devscripts \
+            debhelper \
+            fakeroot \
+            meson \
+            ninja-build \
+            valac \
+            libgtk-3-dev \
+            libglib2.0-dev \
+            pkgconf \
+            lintian
+
+      - name: Check out Menta packaging
+        uses: actions/checkout@v4
+
+      - name: Determine package version
+        id: version
+        shell: bash
+        run: |
+          VERSION="$(dpkg-parsechangelog -l debian/changelog -S Version)"
+          UPSTREAM_VERSION="${VERSION%%-*}"
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "upstream=${UPSTREAM_VERSION}" >> "$GITHUB_OUTPUT"
+
+          echo "Debian version: ${VERSION}"
+          echo "Upstream version: ${UPSTREAM_VERSION}"
+
+      - name: Download upstream source
+        shell: bash
+        run: |
+          UPSTREAM="${{ steps.version.outputs.upstream }}"
+
+          mkdir -p "_build/mate-redshift-${UPSTREAM}"
+
+          curl --fail --location \
+            "https://github.com/KeremSoke/mate-redshift/archive/refs/tags/v${UPSTREAM}.tar.gz" \
+            --output "_build/mate-redshift_${UPSTREAM}.orig.tar.gz"
+
+          tar \
+            -xzf "_build/mate-redshift_${UPSTREAM}.orig.tar.gz" \
+            --strip-components=1 \
+            -C "_build/mate-redshift-${UPSTREAM}"
+
+          cp -a debian "_build/mate-redshift-${UPSTREAM}/"
+
+      - name: Build Debian package
+        shell: bash
+        run: |
+          UPSTREAM="${{ steps.version.outputs.upstream }}"
+          cd "_build/mate-redshift-${UPSTREAM}"
+          dpkg-buildpackage -us -uc
+
+      - name: Run Lintian
+        shell: bash
+        run: |
+          lintian _build/*.changes
+
+      - name: Upload Debian packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: mate-redshift-debian13-${{ steps.version.outputs.version }}
+          path: |
+            _build/*.deb
+            _build/*.dsc
+            _build/*.changes
+            _build/*.buildinfo
+            _build/*.debian.tar.*
+            _build/*.orig.tar.*
+          if-no-files-found: error

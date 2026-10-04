@@ -1,0 +1,28 @@
+Source: mate-redshift
+Section: x11
+Priority: optional
+Maintainer: Kerem Söke <keremsoke@gmail.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ meson,
+ ninja-build,
+ valac,
+ libgtk-3-dev,
+ libglib2.0-dev,
+ pkgconf
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Homepage: https://github.com/KeremSoke/mate-redshift
+Vcs-Git: https://github.com/menta-linux/pkg-mate-redshift.git
+Vcs-Browser: https://github.com/menta-linux/pkg-mate-redshift
+
+Package: mate-redshift
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ redshift-gtk
+Description: Night Light settings for the MATE desktop
+ Graphical Night Light configuration utility for MATE.
+ It configures and controls Redshift GTK and integrates with
+ the MATE desktop.
