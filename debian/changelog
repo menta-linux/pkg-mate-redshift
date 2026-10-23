@@ -1,5 +1,5 @@
-mate-redshift (0.1.0-1menta1) trixie; urgency=medium
+mate-redshift (1.0.0-1) trixie; urgency=medium
 
-  * Initial Menta package.
+  * Initial Debian Trixie packaging. CI replaces this entry for each artifact.
 
  -- Kerem Söke <keremsoke@gmail.com>  Sun, 04 Oct 2026 02:55:24 -0700
