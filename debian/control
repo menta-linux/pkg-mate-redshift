@@ -1,0 +1,29 @@
+Source: mate-redshift
+Section: x11
+Priority: optional
+Maintainer: Menta Linux <packages@menta-linux.invalid>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               libglib2.0-dev (>= 2.74),
+               libgtk-3-dev (>= 3.22),
+               meson (>= 0.59),
+               valac,
+Standards-Version: 4.7.2
+Homepage: https://github.com/KeremSoke/mate-redshift
+Vcs-Browser: https://github.com/menta-linux/pkg-mate-redshift
+Vcs-Git: https://github.com/menta-linux/pkg-mate-redshift.git
+Rules-Requires-Root: no
+
+Package: mate-redshift
+Architecture: any
+Depends: rojo,
+         ${misc:Depends},
+         ${shlibs:Depends},
+Description: Night Light settings dialog for MATE
+ mate-redshift is a settings dialog that configures and controls rojo, the
+ MATE colour daemon that applies night light on both X11 and Wayland
+ sessions. It sets colour temperature, schedule, location and transitions,
+ offers a live preview, and can temporarily pause or force night light.
+ .
+ It can also import an existing redshift configuration and warns about other
+ gamma-ramp tools (redshift, gammastep, wlsunset) that would conflict.

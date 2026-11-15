@@ -1,0 +1,19 @@
+Description: Install mate-redshift.desktop
+ i18n.merge_file() is called without "install: true", so the desktop file
+ is generated but never installed and the dialog has no menu entry.
+Author: Menta Linux <packages@menta-linux.invalid>
+Forwarded: no
+Last-Update: 2026-11-14
+
+Index: mate-redshift-0.1.0+git20261022.c2f3fba/meson.build
+===================================================================
+--- mate-redshift-0.1.0+git20261022.c2f3fba.orig/meson.build
++++ mate-redshift-0.1.0+git20261022.c2f3fba/meson.build
+@@ -31,6 +31,7 @@ i18n.merge_file(
+   output: 'mate-redshift.desktop',
+   type: 'desktop',
+   po_dir: 'po',
++  install: true,
+   install_dir: get_option('datadir') / 'applications')
+ 
+ subdir('po')
