@@ -1,0 +1,22 @@
+mate-redshift (0.1.0+git20261022.c2f3fba-1menta2) unstable; urgency=medium
+
+  * debian/patches/0001: install the desktop file only under the control
+    centre's Look and Feel menu (Settings;DesktopSettings, no X-MATE-
+    PersonalSettings); drop the stale comment from data/mate-
+    redshift.desktop.
+  * Upstream HEAD is still c2f3fba.
+  * CI: build for unstable and trixie.
+
+ -- Menta Linux <packages@menta-linux.invalid>  Sun, 22 Nov 2026 20:53:56 -0700
+
+mate-redshift (0.1.0+git20261022.c2f3fba-1menta1) unstable; urgency=medium
+
+  * Menta Linux package of mate-redshift built from upstream git commit
+    c2f3fba9ac129c68949e7ea255a98b0aeaa92b1d (2026-10-22, 'port to
+    rojo').
+  * debian/patches/0001-install-desktop-file.patch: install the desktop
+    file (upstream omits install: true).
+  * debian/rules: skip upstream tests, they need rojo's GSettings
+    schema.
+
+ -- Menta Linux <packages@menta-linux.invalid>  Sat, 14 Nov 2026 17:49:35 -0700

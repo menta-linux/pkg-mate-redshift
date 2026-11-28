@@ -1,0 +1,36 @@
+Description: Install mate-redshift.desktop, only under "Look and Feel"
+ i18n.merge_file() is called without "install: true", so the desktop file
+ is generated but never installed and the dialog has no menu entry.
+ .
+ The control centre's "Look and Feel" menu (matecc.menu and
+ mate-preferences-categories.menu) selects Settings + DesktopSettings;
+ "Personal" needs X-MATE-PersonalSettings, so that category must not be
+ added (the stale comment suggesting it is removed).
+Author: Menta Linux <packages@menta-linux.invalid>
+Forwarded: no
+Last-Update: 2026-11-14
+
+Index: mate-redshift-0.1.0+git20261022.c2f3fba/meson.build
+===================================================================
+--- mate-redshift-0.1.0+git20261022.c2f3fba.orig/meson.build
++++ mate-redshift-0.1.0+git20261022.c2f3fba/meson.build
+@@ -31,6 +31,7 @@ i18n.merge_file(
+   output: 'mate-redshift.desktop',
+   type: 'desktop',
+   po_dir: 'po',
++  install: true,
+   install_dir: get_option('datadir') / 'applications')
+ 
+ subdir('po')
+Index: mate-redshift-0.1.0+git20261022.c2f3fba/data/mate-redshift.desktop
+===================================================================
+--- mate-redshift-0.1.0+git20261022.c2f3fba.orig/data/mate-redshift.desktop
++++ mate-redshift-0.1.0+git20261022.c2f3fba/data/mate-redshift.desktop
+@@ -6,7 +6,6 @@ Comment=Make the screen warmer at night
+ Exec=mate-redshift
+ Icon=redshift
+ Terminal=false
+ Categories=GTK;Settings;DesktopSettings;
+-# Can be also under X-MATE-PersonalSettings;
+ Keywords=redshift;rojo;night;light;color;temperature;blue;
+ StartupNotify=true

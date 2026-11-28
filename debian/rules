@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --buildsystem=meson
+
+# upstream tests need rojo's GSettings schema (org.mate.rojo.nightlight),
+# which is not available at build time
+override_dh_auto_test:
+	@echo "Skipping upstream tests (need the rojo schema)"
