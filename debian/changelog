@@ -1,3 +1,10 @@
+mate-redshift (1.0.0-1menta1) unstable; urgency=medium
+
+  * New upstream release 1.0.0.
+  * Drop Menta's patch 0001 (desktop file placement): no longer carried; no patches remain.
+
+ -- Menta Linux <packages@menta-linux.invalid>  Fri, 27 Nov 2026 21:30:00 -0700
+
 mate-redshift (0.1.0+git20261022.c2f3fba-1menta2) unstable; urgency=medium
 
   * debian/patches/0001: install the desktop file only under the control
